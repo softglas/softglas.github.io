@@ -2,8 +2,13 @@ import Ember from 'ember';
 
 let {
   run,
-  computed
+  computed,
+  $: jQuery
 } = Ember;
+
+let {
+  SafeString
+} = Ember.Handlebars;
 
 export default Ember.Component.extend({
   activeIndex: 11,
@@ -16,24 +21,19 @@ export default Ember.Component.extend({
   },
 
   setupOrientation: function() {
-    let _this = this;
-
-    Ember.$(window).on('deviceorientation', function(eventData) {
-
+    jQuery(window).on('deviceorientation', (eventData) => {
       let event = eventData.originalEvent;
-      run.throttle(_this, 'setOrientation', event, 500);
+      run.throttle(this, 'setOrientation', event, 500);
     });
 
   },
 
   setOrientation: function(event) {
-    let alpha = event.alpha;
     let beta = event.beta;
     let gamma = event.gamma;
     let gammaIsPositive = false;
 
-
-    if (gamma > 0){
+    if (gamma > 0) {
       gammaIsPositive = true
     }
 
@@ -48,7 +48,6 @@ export default Ember.Component.extend({
     } else if (beta > 78.75) {
       index = 3;
     }
-
 
     if (gammaIsPositive) {
       switch (index) {
@@ -67,7 +66,6 @@ export default Ember.Component.extend({
       }
     } else {
       index = Math.round(index + 7);
-
     }
 
     this.set('activeIndex', index);
@@ -86,7 +84,6 @@ export default Ember.Component.extend({
   activePosition: computed('activeIndex', function() {
     let activeIndex = this.get('activeIndex');
     let rows = this.get('rows');
-
     let columnFromOrigin = Math.floor(activeIndex / rows);
     let rowFromOrigin = activeIndex % rows;
 
@@ -99,8 +96,7 @@ export default Ember.Component.extend({
     let yAxis = this.get('activePosition.y');
     let styles = `background-position: ${ xAxis * 16.7 }% ${ yAxis * 100 }%;`;
 
-    // return styles;
-    return new Ember.Handlebars.SafeString(styles);
+    return new SafeString(styles);
   }),
 
   actions: {
