@@ -1,1 +1,9 @@
-photo-frame
+<div class="frame" style={{inlineStyles}}>
+  {{#each cells as |index|}}
+    {{trackable-area
+      index=index
+      hoverDidChange='hoverDidChange'
+      totalColumns=columns
+      totalRows=rows}}
+  {{/each}}
+</div>

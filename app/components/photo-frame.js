@@ -19,8 +19,6 @@ export default Ember.Component.extend({
   },
 
   setupOrientation: function() {
-    console.log('setupOrientation >>> ');
-
     let _this = this;
 
     Ember.$(window).on('deviceorientation', function(eventData) {
@@ -43,13 +41,16 @@ export default Ember.Component.extend({
     let index = beta / 14;
 
     console.log('beta >>> ', index);
-    // this.set('activeIndex', index);
+    this.set('activeIndex', index);
   },
 
     cells: computed('columns', 'rows', function() {
       let numberOfCells = this.get('columns') * this.get('rows');
-      var arrayOfCells = new Array(numberOfCells);
+      let arrayOfCells = Ember.A([]);
 
+      for (let i = 0; i < numberOfCells; i++) {
+        arrayOfCells.pushObject(i);
+      }
       return arrayOfCells;
     }),
 
@@ -57,14 +58,8 @@ export default Ember.Component.extend({
       let activeIndex = this.get('activeIndex');
       let rows = this.get('rows');
 
-      let height = this.get('height');
-      let width = this.get('width');
-
       let columnFromOrigin = Math.floor(activeIndex / rows);
       let rowFromOrigin = activeIndex % rows;
-
-      let yAxis = columnFromOrigin * -1;
-      let xAxis = rowFromOrigin * -1;
 
       let position = { x: rowFromOrigin, y: columnFromOrigin };
       return position;
@@ -73,11 +68,10 @@ export default Ember.Component.extend({
     inlineStyles: computed('activePosition', function() {
       let xAxis = this.get('activePosition.x');
       let yAxis = this.get('activePosition.y');
-      let rows = this.get('rows');
-      let xSum = (xAxis / 7);
       let styles = `background-position: ${ xAxis * 16.7 }% ${ yAxis * 100 }%;`;
 
-     return styles;
+     return new Ember.Handlebars.SafeString(styles);
+     // return styles;
     }),
 
     actions: {

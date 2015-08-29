@@ -1,0 +1,148 @@
+@import url(http://fonts.googleapis.com/css?family=Lato:100,300);
+
+html, body {
+  margin: 0px;
+  background-color: rgb(0, 9, 11);
+  font-family: 'Lato', sans-serif;
+}
+
+.container, .frame, html, body {
+  height: 100%;
+  width: 100%;
+
+}
+
+/*body .ember-view:first-of-type {
+  height: 100%;
+  width: 100%;
+}*/
+
+.container {
+  max-height: 600px;
+  max-width: 900px;
+  max-height: 100vh;
+  max-width: 177.78vh;
+  width: 69vw;
+  height: 45vw;
+  margin: 0 auto;
+}
+
+.frame{
+  position: relative;
+  background-color: rgb(0, 9, 11);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url('/img/grid.jpg');
+  margin: 0 auto;
+  background-size: 700% 200%;
+
+  box-shadow:
+    inset 40px 0px 40px -7px rgba(0,0,0,1),
+    inset -40px 0px 40px -7px rgba(0,0,0,1);
+
+}
+
+
+
+.grid {
+  background-color: none;
+  position: absolute;
+}
+
+.footer {
+  width: 100%;
+}
+
+.footer h2 {
+  text-align: center;
+  color: white;
+  font-size: 3em;
+  font-weight: lighter;
+  letter-spacing: 0.5em;
+}
+
+.social-links-group {
+  margin: 0 auto;
+  width: 50%;
+  text-align: center;
+  font-size: 1.5em;
+}
+
+.social-links-group a {
+  color: white;
+  text-decoration-line: none;
+  text-decoration: none;
+  margin: 0 1em;
+}
+
+
+/* Overlay */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  /*background-color: rgba(255, 255, 255, 0.85);*/
+  background-color: rgba(25, 25, 25, 0.95); /*dim the background*/
+
+  -webkit-transition: opacity 1.7s ease-in-out;
+  -moz-transition: opacity 1.7s ease-in-out;
+  -ms-transition: opacity 1.7s ease-in-out;
+  -o-transition: opacity 1.7s ease-in-out;
+   opacity: 1;
+}
+
+.overlay.showing {
+  opacity: 0;
+}
+
+.instructions-container {
+  height: 50vh;
+  width: 75%;
+  line-height: 3em;
+  position: fixed;
+  margin: 20% auto;
+  left: 0;
+  right: 0;
+  background-color: none;
+  border-radius: 5px;
+  text-align: center;
+  z-index: 11;
+  font-weight: lighter;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.instructions {
+  font-size: 5vw;
+}
+
+.play-btn {
+  -webkit-border-radius: 5;
+  -moz-border-radius: 5;
+  border-radius: 5px;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 2rem;
+  padding: 1.2vw;
+  border: solid rgba(255, 255, 255, 0.85) 2px;
+  text-decoration: none;
+  width: 50%;
+  margin: 0 auto;
+}
+
+.play-btn:hover {
+  background: rgba(240, 240, 240, 0.5);
+  text-decoration: none;
+}
+
+.divider {
+  font-size: 10vw;
+  margin: 1em;
+  font-weight: lighter;
+}
+
+.soundcloud-player {
+  width: 60%;
+  margin: auto;
+}

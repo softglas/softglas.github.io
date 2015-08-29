@@ -1,3 +1,26 @@
-<h2 id="title">Welcome to Ember</h2>
+{{photo-frame
+  rows=7
+  columns=2
+  width=900
+  height=600}}
 
-{{photo-frame}}
+<div class="footer">
+  <h2>MOVE ME</h2>
+
+  <div class="social-links-group">
+    {{!-- <a href="https://twitter.com/softglas" target="_blank">
+      {{fa-icon "twitter"}}
+     </a>
+     <a href="https://twitter.com/softglas" target="_blank">
+      {{fa-icon "soundcloud"}}
+     </a>
+     <a href="https://twitter.com/softglas" target="_blank">
+      {{fa-icon "tumblr"}}
+     </a> --}}
+  </div>
+  <div class="soundcloud-player">
+    <iframe width="100%" height="100" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/219116652&amp;color=000000&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false"></iframe>
+  </div>
+</div>
+
+{{!-- {{intro-overlay}} --}}
