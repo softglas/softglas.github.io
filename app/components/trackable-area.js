@@ -37,7 +37,6 @@ export default Ember.Component.extend({
   didInsertElement: function() {
 
     run.scheduleOnce('afterRender', this, () => {
-      console.log('this>>> ???? ', this.get('ind'));
       // let $area = jQuery(this.element);
       // $area.on('mouseenter', this.mouseEnter);
       // $area.on('mouseleave', this.mouseLeave);
@@ -67,7 +66,6 @@ export default Ember.Component.extend({
   actions: {
     hoverDidChange() {
       let index = this.get('index');
-      // console.log('trackable-area hoverDidChange: '+index);
       this.sendAction('hoverDidChange', index);
     }
   }
