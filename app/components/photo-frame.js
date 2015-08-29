@@ -22,53 +22,55 @@ export default Ember.Component.extend({
 
       let event = eventData.originalEvent;
       run.throttle(_this, 'setOrientation', event, 500);
-
     });
 
   },
 
   setOrientation: function(event) {
-
-    // if (event.beta > 25) {
-      let alpha = event.alpha;
-      let beta = event.beta;
-      let gamma = event.gamma;
-      let gammaIsPositive = false;
+    let alpha = event.alpha;
+    let beta = event.beta;
+    let gamma = event.gamma;
+    let gammaIsPositive = false;
 
 
-      if (gamma > 0){
-        gammaIsPositive = true
+    if (gamma > 0){
+      gammaIsPositive = true
+    }
+
+    let index = 3;
+
+    if (beta < 56.25) {
+      index = 0;
+    } else if (beta > 56.25 && beta < 67.5) {
+      index = 1;
+    } else if (beta > 67.5 && beta < 78.75) {
+      index = 2;
+    } else if (beta > 78.75) {
+      index = 3;
+    }
+
+
+    if (gammaIsPositive) {
+      switch (index) {
+          case 0:
+              index = 13;
+              break;
+          case 1:
+              index = 12;
+              break;
+          case 2:
+              index = 11;
+              break;
+          case 3:
+              index = 10;
+              break;
       }
+    } else {
+      index = Math.round(index + 7);
 
-      let index = Math.round(beta / 25.714285714);
-      if (gammaIsPositive) {
-        switch (index) {
-            case 0:
-                index = 13;
-                break;
-            case 1:
-                index = 12;
-                break;
-            case 2:
-                index = 11;
-                break;
-            case 3:
-                index = 10;
-                break;
-        }
-      } else {
-        index = Math.round(index + 7);
+    }
 
-      }
-
-      // index = index * 2;
-
-
-      // FIXME: this can be fixed up so that when titling to the left
-      // we should the slides from the left.
-
-      this.set('activeIndex', index);
-    // }
+    this.set('activeIndex', index);
   },
 
   cells: computed('columns', 'rows', function() {
