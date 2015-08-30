@@ -85,7 +85,7 @@ export default Ember.Component.extend({
           index = 11;
         } else if (gamma > 35 && gamma < 55) {
           index = 12;
-        } else if (gamma > 55 && gamma < 65) {
+        } else if (gamma > 55) {
           index = 13;
         }
 
@@ -95,10 +95,9 @@ export default Ember.Component.extend({
           index = 9;
         } else if (beta > 8 && beta < 12) {
           index = 8;
-        } else if (beta > 12 && beta < 20) {
+        } else if (beta > 12 && beta < 30) {
           index = 7;
         }
-
 
       } else if (gamma < 0) { // top left
 
@@ -108,7 +107,7 @@ export default Ember.Component.extend({
           index = 9;
         } else if (gamma < -35 && gamma > -55) {
           index = 8;
-        } else if (gamma < -55 && gamma > -65) {
+        } else if (gamma < -55) {
           index = 7;
         }
 
@@ -118,21 +117,21 @@ export default Ember.Component.extend({
           index = 11;
         } else if (beta > 8 && beta < 12) {
           index = 12;
-        } else if (beta > 12 && beta < 20) {
+        } else if (beta > 12 && beta < 30) {
           index = 13;
         }
-
 
       }
     } else if (beta < 0) {
       if (gamma > 0) { //bottom right
+
         if (beta > -4 && beta < 0) {
           index = 10;
         } else if (beta < -4 && beta > -8 ) {
           index = 11;
         } else if (beta < -8 && beta > -12) {
           index = 12;
-        } else if (beta < -12 && beta > -18) {
+        } else if (beta < -12 && beta > -30) {
           index = 13;
         }
 
@@ -144,7 +143,7 @@ export default Ember.Component.extend({
           index = 9;
         } else if (beta < -8 && beta > -12) {
           index = 8;
-        } else if (beta < -12 && beta > -18) {
+        } else if (beta < -12 && beta > -30) {
           index = 7;
         }
 
@@ -154,13 +153,12 @@ export default Ember.Component.extend({
           index = 11;
         } else if (beta > 8 && beta < 12) {
           index = 12;
-        } else if (beta > 12 && beta < 18) {
+        } else if (beta > 12 && beta < 30) {
           index = 13;
         }
 
       }
     }
-
     return index;
   }
 });
