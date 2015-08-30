@@ -84,9 +84,9 @@ define('softglas/components/photo-frame', ['exports', 'ember'], function (export
 
   exports['default'] = Ember['default'].Component.extend({
     activeIndex: 11,
+    classNames: ['container'],
     columns: null,
     rows: null,
-    classNames: ['container'],
 
     didInsertElement: function didInsertElement() {
       run.scheduleOnce('afterRender', this, this.setupOrientation);
@@ -97,49 +97,14 @@ define('softglas/components/photo-frame', ['exports', 'ember'], function (export
 
       jQuery(window).on('deviceorientation', function (eventData) {
         var event = eventData.originalEvent;
-        run.throttle(_this, 'setOrientation', event, 500);
+
+        // run.throttle(this, 'setOrientation', event, 500);
+        _this.setOrientation(event);
       });
     },
 
     setOrientation: function setOrientation(event) {
-      var beta = event.beta;
-      var gamma = event.gamma;
-      var gammaIsPositive = false;
-
-      if (gamma > 0) {
-        gammaIsPositive = true;
-      }
-
-      var index = 3;
-
-      if (beta < 56.25) {
-        index = 0;
-      } else if (beta > 56.25 && beta < 67.5) {
-        index = 1;
-      } else if (beta > 67.5 && beta < 78.75) {
-        index = 2;
-      } else if (beta > 78.75) {
-        index = 3;
-      }
-
-      if (gammaIsPositive) {
-        switch (index) {
-          case 0:
-            index = 13;
-            break;
-          case 1:
-            index = 12;
-            break;
-          case 2:
-            index = 11;
-            break;
-          case 3:
-            index = 10;
-            break;
-        }
-      } else {
-        index = Math.round(index + 7);
-      }
+      var index = this._calculateIndex(event);
 
       this.set('activeIndex', index);
     },
@@ -176,6 +141,98 @@ define('softglas/components/photo-frame', ['exports', 'ember'], function (export
       hoverDidChange: function hoverDidChange(index) {
         this.set('activeIndex', index);
       }
+    },
+
+    _calculateIndex: function _calculateIndex(event) {
+      var beta = event.beta;
+      var gamma = event.gamma;
+
+      var index = 10;
+
+      if (beta > 0) {
+        if (gamma > 0) {
+          //top right
+
+          if (gamma < 15) {
+            index = 10;
+          } else if (gamma > 15 && gamma < 35) {
+            index = 11;
+          } else if (gamma > 35 && gamma < 55) {
+            index = 12;
+          } else if (gamma > 55) {
+            index = 13;
+          }
+
+          if (beta < 4) {
+            index = 10;
+          } else if (beta > 4 && beta < 8) {
+            index = 9;
+          } else if (beta > 8 && beta < 12) {
+            index = 8;
+          } else if (beta > 12 && beta < 30) {
+            index = 7;
+          }
+        } else if (gamma < 0) {
+          // top left
+
+          if (gamma > -15) {
+            index = 10;
+          } else if (gamma < -15 && gamma > -35) {
+            index = 9;
+          } else if (gamma < -35 && gamma > -55) {
+            index = 8;
+          } else if (gamma < -55) {
+            index = 7;
+          }
+
+          if (beta < 4) {
+            index = 10;
+          } else if (beta > 4 && beta < 8) {
+            index = 11;
+          } else if (beta > 8 && beta < 12) {
+            index = 12;
+          } else if (beta > 12 && beta < 30) {
+            index = 13;
+          }
+        }
+      } else if (beta < 0) {
+        if (gamma > 0) {
+          //bottom right
+
+          if (beta > -4 && beta < 0) {
+            index = 10;
+          } else if (beta < -4 && beta > -8) {
+            index = 11;
+          } else if (beta < -8 && beta > -12) {
+            index = 12;
+          } else if (beta < -12 && beta > -30) {
+            index = 13;
+          }
+        } else if (gamma < 0) {
+          // bottom left
+
+          if (beta > -4 && beta < 0) {
+            index = 10;
+          } else if (beta < -4 && beta > -8) {
+            index = 9;
+          } else if (beta < -8 && beta > -12) {
+            index = 8;
+          } else if (beta < -12 && beta > -30) {
+            index = 7;
+          }
+
+          if (beta > 0 && beta < 4) {
+            index = 10;
+          } else if (beta > 4 && beta < 8) {
+            index = 11;
+          } else if (beta > 8 && beta < 12) {
+            index = 12;
+          } else if (beta > 12 && beta < 30) {
+            index = 13;
+          }
+        }
+      }
+      return index;
     }
   });
 
@@ -382,7 +439,7 @@ define('softglas/templates/application', ['exports'], function (exports) {
         dom.setAttribute(el3,"height","100");
         dom.setAttribute(el3,"scrolling","no");
         dom.setAttribute(el3,"frameborder","no");
-        dom.setAttribute(el3,"src","https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/219116652&color=000000&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false");
+        dom.setAttribute(el3,"src","https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/219116652&color=000000&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false");
         dom.appendChild(el2, el3);
         var el3 = dom.createTextNode("\n  ");
         dom.appendChild(el2, el3);
@@ -541,11 +598,11 @@ define('softglas/templates/components/photo-frame', ['exports'], function (expor
           "loc": {
             "source": null,
             "start": {
-              "line": 2,
+              "line": 5,
               "column": 2
             },
             "end": {
-              "line": 8,
+              "line": 11,
               "column": 2
             }
           },
@@ -570,7 +627,7 @@ define('softglas/templates/components/photo-frame', ['exports'], function (expor
           return morphs;
         },
         statements: [
-          ["inline","trackable-area",[],["index",["subexpr","@mut",[["get","index",["loc",[null,[4,12],[4,17]]]]],[],[]],"hoverDidChange","hoverDidChange","totalColumns",["subexpr","@mut",[["get","columns",["loc",[null,[6,19],[6,26]]]]],[],[]],"totalRows",["subexpr","@mut",[["get","rows",["loc",[null,[7,16],[7,20]]]]],[],[]]],["loc",[null,[3,4],[7,22]]]]
+          ["inline","trackable-area",[],["index",["subexpr","@mut",[["get","index",["loc",[null,[7,12],[7,17]]]]],[],[]],"hoverDidChange","hoverDidChange","totalColumns",["subexpr","@mut",[["get","columns",["loc",[null,[9,19],[9,26]]]]],[],[]],"totalRows",["subexpr","@mut",[["get","rows",["loc",[null,[10,16],[10,20]]]]],[],[]]],["loc",[null,[6,4],[10,22]]]]
         ],
         locals: ["index"],
         templates: []
@@ -586,7 +643,7 @@ define('softglas/templates/components/photo-frame', ['exports'], function (expor
             "column": 0
           },
           "end": {
-            "line": 10,
+            "line": 13,
             "column": 0
           }
         },
@@ -599,7 +656,14 @@ define('softglas/templates/components/photo-frame', ['exports'], function (expor
         var el0 = dom.createDocumentFragment();
         var el1 = dom.createElement("div");
         dom.setAttribute(el1,"class","frame");
-        var el2 = dom.createTextNode("\n");
+        var el2 = dom.createTextNode("\n\n");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("div");
+        dom.setAttribute(el2,"style","color: white; ");
+        var el3 = dom.createComment("");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n\n");
         dom.appendChild(el1, el2);
         var el2 = dom.createComment("");
         dom.appendChild(el1, el2);
@@ -610,14 +674,16 @@ define('softglas/templates/components/photo-frame', ['exports'], function (expor
       },
       buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
         var element0 = dom.childAt(fragment, [0]);
-        var morphs = new Array(2);
+        var morphs = new Array(3);
         morphs[0] = dom.createAttrMorph(element0, 'style');
-        morphs[1] = dom.createMorphAt(element0,1,1);
+        morphs[1] = dom.createMorphAt(dom.childAt(element0, [1]),0,0);
+        morphs[2] = dom.createMorphAt(element0,3,3);
         return morphs;
       },
       statements: [
         ["attribute","style",["get","inlineStyles",["loc",[null,[1,27],[1,39]]]]],
-        ["block","each",[["get","cells",["loc",[null,[2,10],[2,15]]]]],[],0,null,["loc",[null,[2,2],[8,11]]]]
+        ["content","stuff",["loc",[null,[3,28],[3,37]]]],
+        ["block","each",[["get","cells",["loc",[null,[5,10],[5,15]]]]],[],0,null,["loc",[null,[5,2],[11,11]]]]
       ],
       locals: [],
       templates: [child0]
@@ -689,7 +755,7 @@ define('softglas/tests/components/photo-frame.jshint', function () {
 
   QUnit.module('JSHint - components');
   QUnit.test('components/photo-frame.js should pass jshint', function(assert) { 
-    assert.ok(false, 'components/photo-frame.js should pass jshint.\ncomponents/photo-frame.js: line 37, col 29, Missing semicolon.\n\n1 error'); 
+    assert.ok(true, 'components/photo-frame.js should pass jshint.'); 
   });
 
 });
@@ -815,7 +881,7 @@ catch(err) {
 if (runningTests) {
   require("softglas/tests/test-helper");
 } else {
-  require("softglas/app")["default"].create({"contentSecurityPolicy":{"default-src":"'none' https://*.soundcloud.com/*","script-src":"'self' 'unsafe-inline' 'unsafe-eval'","font-src":"'self' http://fonts.googleapis.com/* http://fonts.gstatic.com/*","frame-src":"*soundcloud.com","connect-src":"'self' ","img-src":"'self'","style-src":"'unsafe-inline' 'unsafe-eval'","media-src":"'self'"},"name":"softglas","version":"0.0.0+ff68078a"});
+  require("softglas/app")["default"].create({"contentSecurityPolicy":{"default-src":"'none' https://*.soundcloud.com/*","script-src":"'self' 'unsafe-inline' 'unsafe-eval'","font-src":"'self' http://fonts.googleapis.com/* http://fonts.gstatic.com/*","frame-src":"*soundcloud.com","connect-src":"'self' ","img-src":"'self'","style-src":"'unsafe-inline' 'unsafe-eval'","media-src":"'self'"},"name":"softglas","version":"0.0.0+a8127514"});
 }
 
 /* jshint ignore:end */
