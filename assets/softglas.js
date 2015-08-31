@@ -378,6 +378,16 @@ define('softglas/router', ['exports', 'ember', 'softglas/config/environment'], f
 
   Router.map(function () {});
 
+  // Re open config
+  Router.reopen({
+    notifyGoogleAnalytics: (function () {
+      return ga('send', 'pageview', {
+        'page': this.get('url'),
+        'title': this.get('url')
+      });
+    }).on('didTransition')
+  });
+
   exports['default'] = Router;
 
 });
@@ -439,7 +449,7 @@ define('softglas/templates/application', ['exports'], function (exports) {
         dom.setAttribute(el3,"height","100");
         dom.setAttribute(el3,"scrolling","no");
         dom.setAttribute(el3,"frameborder","no");
-        dom.setAttribute(el3,"src","https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/219116652&color=000000&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false");
+        dom.setAttribute(el3,"src","https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/219116652&color=000000&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false");
         dom.appendChild(el2, el3);
         var el3 = dom.createTextNode("\n  ");
         dom.appendChild(el2, el3);
@@ -598,11 +608,11 @@ define('softglas/templates/components/photo-frame', ['exports'], function (expor
           "loc": {
             "source": null,
             "start": {
-              "line": 5,
+              "line": 2,
               "column": 2
             },
             "end": {
-              "line": 11,
+              "line": 8,
               "column": 2
             }
           },
@@ -627,7 +637,7 @@ define('softglas/templates/components/photo-frame', ['exports'], function (expor
           return morphs;
         },
         statements: [
-          ["inline","trackable-area",[],["index",["subexpr","@mut",[["get","index",["loc",[null,[7,12],[7,17]]]]],[],[]],"hoverDidChange","hoverDidChange","totalColumns",["subexpr","@mut",[["get","columns",["loc",[null,[9,19],[9,26]]]]],[],[]],"totalRows",["subexpr","@mut",[["get","rows",["loc",[null,[10,16],[10,20]]]]],[],[]]],["loc",[null,[6,4],[10,22]]]]
+          ["inline","trackable-area",[],["index",["subexpr","@mut",[["get","index",["loc",[null,[4,12],[4,17]]]]],[],[]],"hoverDidChange","hoverDidChange","totalColumns",["subexpr","@mut",[["get","columns",["loc",[null,[6,19],[6,26]]]]],[],[]],"totalRows",["subexpr","@mut",[["get","rows",["loc",[null,[7,16],[7,20]]]]],[],[]]],["loc",[null,[3,4],[7,22]]]]
         ],
         locals: ["index"],
         templates: []
@@ -643,7 +653,7 @@ define('softglas/templates/components/photo-frame', ['exports'], function (expor
             "column": 0
           },
           "end": {
-            "line": 13,
+            "line": 10,
             "column": 0
           }
         },
@@ -656,14 +666,7 @@ define('softglas/templates/components/photo-frame', ['exports'], function (expor
         var el0 = dom.createDocumentFragment();
         var el1 = dom.createElement("div");
         dom.setAttribute(el1,"class","frame");
-        var el2 = dom.createTextNode("\n\n");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createElement("div");
-        dom.setAttribute(el2,"style","color: white; ");
-        var el3 = dom.createComment("");
-        dom.appendChild(el2, el3);
-        dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("\n\n");
+        var el2 = dom.createTextNode("\n");
         dom.appendChild(el1, el2);
         var el2 = dom.createComment("");
         dom.appendChild(el1, el2);
@@ -674,16 +677,14 @@ define('softglas/templates/components/photo-frame', ['exports'], function (expor
       },
       buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
         var element0 = dom.childAt(fragment, [0]);
-        var morphs = new Array(3);
+        var morphs = new Array(2);
         morphs[0] = dom.createAttrMorph(element0, 'style');
-        morphs[1] = dom.createMorphAt(dom.childAt(element0, [1]),0,0);
-        morphs[2] = dom.createMorphAt(element0,3,3);
+        morphs[1] = dom.createMorphAt(element0,1,1);
         return morphs;
       },
       statements: [
         ["attribute","style",["get","inlineStyles",["loc",[null,[1,27],[1,39]]]]],
-        ["content","stuff",["loc",[null,[3,28],[3,37]]]],
-        ["block","each",[["get","cells",["loc",[null,[5,10],[5,15]]]]],[],0,null,["loc",[null,[5,2],[11,11]]]]
+        ["block","each",[["get","cells",["loc",[null,[2,10],[2,15]]]]],[],0,null,["loc",[null,[2,2],[8,11]]]]
       ],
       locals: [],
       templates: [child0]
@@ -832,7 +833,7 @@ define('softglas/tests/router.jshint', function () {
 
   QUnit.module('JSHint - .');
   QUnit.test('router.js should pass jshint', function(assert) { 
-    assert.ok(true, 'router.js should pass jshint.'); 
+    assert.ok(false, 'router.js should pass jshint.\nrouter.js: line 16, col 12, \'ga\' is not defined.\n\n1 error'); 
   });
 
 });
@@ -881,7 +882,7 @@ catch(err) {
 if (runningTests) {
   require("softglas/tests/test-helper");
 } else {
-  require("softglas/app")["default"].create({"contentSecurityPolicy":{"default-src":"'none' https://*.soundcloud.com/*","script-src":"'self' 'unsafe-inline' 'unsafe-eval'","font-src":"'self' http://fonts.googleapis.com/* http://fonts.gstatic.com/*","frame-src":"*soundcloud.com","connect-src":"'self' ","img-src":"'self'","style-src":"'unsafe-inline' 'unsafe-eval'","media-src":"'self'"},"name":"softglas","version":"0.0.0+a8127514"});
+  require("softglas/app")["default"].create({"contentSecurityPolicy":{"default-src":"'none' https://*.soundcloud.com/*","script-src":"'self' 'unsafe-inline' 'unsafe-eval'","font-src":"'self' http://fonts.googleapis.com/* http://fonts.gstatic.com/*","frame-src":"*soundcloud.com","connect-src":"'self' ","img-src":"'self'","style-src":"'unsafe-inline' 'unsafe-eval'","media-src":"'self'"},"name":"softglas","version":"0.0.0+39ed920b"});
 }
 
 /* jshint ignore:end */
