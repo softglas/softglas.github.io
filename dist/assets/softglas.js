@@ -882,7 +882,7 @@ catch(err) {
 if (runningTests) {
   require("softglas/tests/test-helper");
 } else {
-  require("softglas/app")["default"].create({"contentSecurityPolicy":{"default-src":"'none' https://*.soundcloud.com/*","script-src":"'self' 'unsafe-inline' 'unsafe-eval'","font-src":"'self' http://fonts.googleapis.com/* http://fonts.gstatic.com/*","frame-src":"*soundcloud.com","connect-src":"'self' ","img-src":"'self'","style-src":"'unsafe-inline' 'unsafe-eval'","media-src":"'self'"},"name":"softglas","version":"0.0.0+e5d399df"});
+  require("softglas/app")["default"].create({"contentSecurityPolicy":{"default-src":"'none' https://*.soundcloud.com/*","script-src":"'self' 'unsafe-inline' 'unsafe-eval'","font-src":"'self' http://fonts.googleapis.com/* http://fonts.gstatic.com/*","frame-src":"*soundcloud.com","connect-src":"'self' ","img-src":"'self'","style-src":"'unsafe-inline' 'unsafe-eval'","media-src":"'self'"},"name":"softglas","version":"0.0.0+21b61952"});
 }
 
 /* jshint ignore:end */
