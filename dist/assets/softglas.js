@@ -449,7 +449,7 @@ define('softglas/templates/application', ['exports'], function (exports) {
         dom.setAttribute(el3,"height","100");
         dom.setAttribute(el3,"scrolling","no");
         dom.setAttribute(el3,"frameborder","no");
-        dom.setAttribute(el3,"src","https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/219116652&color=000000&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false");
+        dom.setAttribute(el3,"src","https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/225619218&color=ff5500&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false");
         dom.appendChild(el2, el3);
         var el3 = dom.createTextNode("\n  ");
         dom.appendChild(el2, el3);
@@ -882,7 +882,7 @@ catch(err) {
 if (runningTests) {
   require("softglas/tests/test-helper");
 } else {
-  require("softglas/app")["default"].create({"contentSecurityPolicy":{"default-src":"'none' https://*.soundcloud.com/*","script-src":"'self' 'unsafe-inline' 'unsafe-eval'","font-src":"'self' http://fonts.googleapis.com/* http://fonts.gstatic.com/*","frame-src":"*soundcloud.com","connect-src":"'self' ","img-src":"'self'","style-src":"'unsafe-inline' 'unsafe-eval'","media-src":"'self'"},"name":"softglas","version":"0.0.0+21b61952"});
+  require("softglas/app")["default"].create({"contentSecurityPolicy":{"default-src":"'none' https://*.soundcloud.com/*","script-src":"'self' 'unsafe-inline' 'unsafe-eval'","font-src":"'self' http://fonts.googleapis.com/* http://fonts.gstatic.com/*","frame-src":"*soundcloud.com","connect-src":"'self' ","img-src":"'self'","style-src":"'unsafe-inline' 'unsafe-eval'","media-src":"'self'"},"name":"softglas","version":"0.0.0+c5ffbd08"});
 }
 
 /* jshint ignore:end */
